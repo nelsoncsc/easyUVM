@@ -1,5 +1,5 @@
 class packet_out extends uvm_sequence_item;
-    rand integer data;
+    integer data;
 
     `uvm_object_utils_begin(packet_out)
         `uvm_field_int(data, UVM_ALL_ON|UVM_HEX)
