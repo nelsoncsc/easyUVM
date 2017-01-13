@@ -32,8 +32,9 @@ class driver_out extends uvm_driver #(packet_out);
     virtual protected task drive(uvm_phase phase);
         wait(vif.rst === 1);
         @(negedge vif.rst);
-        @(posedge vif.clk);
-        
-        vif.ready <= 1;
+        forever begin
+          @(posedge vif.clk);
+          vif.ready <= 1;
+        end
     endtask
 endclass
