@@ -1,4 +1,5 @@
 import "DPI-C" context function int sum(int a, int b);
+import "DPI-C" function void c_receive_data(int a, int b, int result);
 
 class refmod extends uvm_component;
     `uvm_component_utils(refmod)
@@ -26,6 +27,10 @@ class refmod extends uvm_component;
         forever begin
             in.get(tr_in);
             tr_out.data = sum(tr_in.A, tr_in.B);
+            // Passing values from SystemVerilog to C does not require an
+            // SV "export" declaration. Import a C function and call it with
+            // DPI-compatible arguments, as done here.
+            c_receive_data(tr_in.A, tr_in.B, tr_out.data);
             out.put(tr_out);
         end
     endtask: run_phase
